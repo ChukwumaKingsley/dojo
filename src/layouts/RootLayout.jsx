@@ -1,9 +1,10 @@
-import { Outlet } from "react-router-dom"
+import { Outlet, useLoaderData } from "react-router-dom"
 import Navbar from "../components/Navbar"
 import { Grid, GridItem } from "@chakra-ui/react"
 import Sidebar from "../components/Sidebar"
 
 export default function RootLayout() {
+  const tasks = useLoaderData()
   return (
     <Grid templateColumns={"repeat(6, 1fr)"} bg={'gray.300'}>
       <GridItem 
@@ -25,4 +26,9 @@ export default function RootLayout() {
       </GridItem>
     </Grid>
   )
+}
+
+export const tasksLoader = async () => {
+  const res = await fetch("http://localhost:3000/tasks")
+  return res.json()
 }
